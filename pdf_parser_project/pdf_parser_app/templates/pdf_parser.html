@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}PDF Parser{% endblock %}
+
+{% block content %}
+<h1>PDF Parser</h1>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <input type="file" name="pdf_file">
+  <button type="submit">Parse PDF</button>
+</form>
+
+{% if parsed_data %}
+  <h2>Parsed Data</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Field 1</th>
+        <th>Field 2</th>
+        <th>Field 3</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in parsed_data %}
+        <tr>
+          <td>{{ record.field1 }}</td>
+          <td>{{ record.field2 }}</td>
+          <td>{{ record.field3 }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+{% endblock %}
